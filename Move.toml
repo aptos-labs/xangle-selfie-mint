@@ -1,0 +1,17 @@
+[package]
+name = 'xangle'
+version = '0.0.1'
+
+
+[addresses]
+myself = "0x5795f1a0ebfabdbe1860c3588e88b70ce3a687a7a831b0f1cc35185e9f154209"
+
+[dependencies.AptosFramework]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'mainnet'
+subdir = 'aptos-move/framework/aptos-framework'
+
+[dependencies.AptosToken]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'mainnet'
+subdir = 'aptos-move/framework/aptos-token'
