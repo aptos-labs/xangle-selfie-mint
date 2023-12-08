@@ -1,17 +1,27 @@
 [package]
-name = 'xangle'
+name = 'minter'
 version = '0.0.1'
 
 
 [addresses]
-myself = "0x5795f1a0ebfabdbe1860c3588e88b70ce3a687a7a831b0f1cc35185e9f154209"
+myself = "0x57542a103180ff5323e6140db1280e59f57e66e868a54bf153d96969b3391e0c"
 
 [dependencies.AptosFramework]
 git = 'https://github.com/aptos-labs/aptos-core.git'
-rev = 'mainnet'
+rev = 'main'
 subdir = 'aptos-move/framework/aptos-framework'
+
+[dependencies.AptosTokenObjects]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'main'
+subdir = 'aptos-move/framework/aptos-token-objects'
+
+[dependencies.MoveStdlib]
+git = 'https://github.com/aptos-labs/aptos-core.git'
+rev = 'main'
+subdir = 'aptos-move/framework/move-stdlib'
 
 [dependencies.AptosToken]
 git = 'https://github.com/aptos-labs/aptos-core.git'
-rev = 'mainnet'
+rev = 'main'
 subdir = 'aptos-move/framework/aptos-token'

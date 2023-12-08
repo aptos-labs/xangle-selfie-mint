@@ -26,3 +26,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .aptos/
+
+mint-dapp/node_modules
+build
