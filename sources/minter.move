@@ -18,10 +18,12 @@ module myself::minter {
         signer_cap: account::SignerCapability,
     }
 
+    /// The caller is not authorized to perform this action
     const ENOT_AUTHORIZED: u64 = 1;
-    const EHAS_ALREADY_CLAIMED_MINT: u64 = 2;
-    const EMINTING_NOT_ENABLED: u64 = 3;
-    const EALREADY_MINTED_THEM_ALL: u64 = 4;
+    /// The caller has already minted an NFT
+    const EUSER_ALREADY_MINTED: u64 = 2;
+    /// All of the NFTs have already been minted
+    const EALL_TOKENS_ALREADY_MINTED: u64 = 3;
 
     const COLLECTION_NAME: vector<u8> = b"Aptos IIT 2023 Event Selfie";
     const COLLECTION_DESCRIPTION: vector<u8> = b"Max took a selfie at the Aptos IIT 2023 Event in Seoul, and now everyone is on the blockchain forever! Limited edition of 250.";
@@ -75,16 +77,27 @@ module myself::minter {
         // Mints 1 NFT to the signer
         let resource_signer = get_resource_signer();
 
-        let count_str = string_utils::to_string(&(get_collection_count() + 1));
+        let count = get_collection_count();
+        assert!(count < MAX_SUPPLY, EALL_TOKENS_ALREADY_MINTED);
 
         // Set up the NFT
         // Mint it with the user as the name- ensures user can only mint one
         let user_address = signer::address_of(user);
+
+        let collection_name = string::utf8(COLLECTION_NAME);
+        let address_name = string_utils::to_string_with_canonical_addresses(&user_address);
+        let token_address = token::create_token_address(
+            &signer::address_of(&resource_signer),
+            &collection_name,
+            &address_name,
+        );
+        assert!(!object::object_exists<object::ObjectCore>(token_address), EUSER_ALREADY_MINTED);
+
         let token_constructor_ref = token::create_named_token(
             &resource_signer,
-            string::utf8(COLLECTION_NAME),
+            collection_name,
             string::utf8(TOKEN_DESCRIPTION),
-            string_utils::to_string_with_canonical_addresses(&user_address),
+            address_name,
             option::none<royalty::Royalty>(),
             string::utf8(TOKEN_IMAGE_URL),
         );
@@ -92,6 +105,7 @@ module myself::minter {
         // Rename the token to the actual token name
         let token_name = string::utf8(TOKEN_NAME);
         string::append_utf8(&mut token_name, b": #");
+        let count_str = string_utils::to_string(&(count + 1));
         string::append(&mut token_name, count_str);
 
         let token_mutator_ref = token::generate_mutator_ref(&token_constructor_ref);
@@ -115,7 +129,21 @@ module myself::minter {
     }
 
     #[test(aptos = @0x1, user = @0x123ff, myself = @myself)]
-    #[expected_failure(abort_code = 131074, location = aptos_token_objects::collection)]
+    #[expected_failure(abort_code = EUSER_ALREADY_MINTED, location = Self)]
+    public entry fun test_user_already_minted(
+        aptos: signer,
+        user: signer,
+        myself: signer
+    ) acquires MinterConfig {
+        setup_and_mint(&aptos, &user, &myself);
+        init_module(&myself);
+
+        claim_mint(&user);
+        claim_mint(&user);
+    }
+
+    #[test(aptos = @0x1, user = @0x123ff, myself = @myself)]
+    #[expected_failure(abort_code = EALL_TOKENS_ALREADY_MINTED, location = Self)]
     public entry fun test_mint_limit(
         aptos: signer,
         user: signer,
@@ -133,7 +161,6 @@ module myself::minter {
         };
         abort 100
     }
-
 
     #[test(aptos = @0x1, user1 = @0x111, user2 = @0x222, myself = @myself)]
     public entry fun test_e2e(
@@ -158,6 +185,6 @@ module myself::minter {
         assert!(object::is_owner(token2_object, signer::address_of(&user2)), 20);
         let name2 = token::name(token2_object);
         let name2_len = string::length(&name2);
-        assert!(string::sub_string(&name2, name2_len - 4, name2_len) == string::utf8(b": #2"), 11);
+        assert!(string::sub_string(&name2, name2_len - 4, name2_len) == string::utf8(b": #2"), 21);
     }
 }
