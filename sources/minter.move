@@ -26,7 +26,7 @@ module myself::minter {
     const EALL_TOKENS_ALREADY_MINTED: u64 = 3;
 
     const COLLECTION_NAME: vector<u8> = b"Aptos IIT 2023 Event Selfie";
-    const COLLECTION_DESCRIPTION: vector<u8> = b"Max took a selfie at the Aptos IIT 2023 Event in Seoul, and now everyone is on the blockchain forever! Limited edition of 250.";
+    const COLLECTION_DESCRIPTION: vector<u8> = b"Max took a selfie at the Aptos IIT 2023 Event in Mumbai, and now everyone is on the blockchain forever! Limited edition of 250.";
     const TOKEN_NAME: vector<u8> = b"Aptos IIT 2023 Event Selfie with Max";
     const TOKEN_DESCRIPTION: vector<u8> = b"Limited edition 250 Aptos IIT 2023 Event selfies with Max";
 
