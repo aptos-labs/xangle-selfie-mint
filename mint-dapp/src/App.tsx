@@ -12,7 +12,7 @@ function App() {
   const transaction = {
     arguments: [],
     // Prod:
-    function: "0x57542a103180ff5323e6140db1280e59f57e66e868a54bf153d96969b3391e0c::minter::claim_mint",
+    function: "0xf15c374bcaf95b011c53b65bd5efdd35d12ba5bdee58dab2c8831e9f0bcb4c27::minter::claim_mint",
     // Test:
     // function: "0x5795f1a0ebfabdbe1860c3588e88b70ce3a687a7a831b0f1cc35185e9f154209::minter::claim_mint",
     type: "entry_function_payload",

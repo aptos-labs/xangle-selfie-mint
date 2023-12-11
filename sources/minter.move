@@ -91,7 +91,7 @@ module myself::minter {
             &collection_name,
             &address_name,
         );
-        assert!(!object::object_exists<object::ObjectCore>(token_address), EUSER_ALREADY_MINTED);
+        assert!(!object::is_object(token_address), EUSER_ALREADY_MINTED);
 
         let token_constructor_ref = token::create_named_token(
             &resource_signer,

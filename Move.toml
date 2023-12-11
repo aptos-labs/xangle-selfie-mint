@@ -4,24 +4,25 @@ version = '0.0.1'
 
 
 [addresses]
-myself = "0x57542a103180ff5323e6140db1280e59f57e66e868a54bf153d96969b3391e0c"
+myself = "0xf15c374bcaf95b011c53b65bd5efdd35d12ba5bdee58dab2c8831e9f0bcb4c27"
 
 [dependencies.AptosFramework]
 git = 'https://github.com/aptos-labs/aptos-core.git'
-rev = 'main'
+rev = 'mainnet'
 subdir = 'aptos-move/framework/aptos-framework'
 
 [dependencies.AptosTokenObjects]
 git = 'https://github.com/aptos-labs/aptos-core.git'
-rev = 'main'
+rev = 'mainnet'
 subdir = 'aptos-move/framework/aptos-token-objects'
 
 [dependencies.MoveStdlib]
 git = 'https://github.com/aptos-labs/aptos-core.git'
-rev = 'main'
+rev = 'mainnet'
 subdir = 'aptos-move/framework/move-stdlib'
 
 [dependencies.AptosToken]
 git = 'https://github.com/aptos-labs/aptos-core.git'
-rev = 'main'
+rev = 'mainnet'
 subdir = 'aptos-move/framework/aptos-token'
+
