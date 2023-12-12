@@ -19,7 +19,8 @@ npm run dev
  - Aviraj Khare
 
 ## TODO
- - Fix node packages vulnerabilities and dep hell
- - Introduce dockerfile and dockercompose
- - Introduce codecov
- - Introduce version bump tool(can be a cron job in GH Actions)
+ - [ ] Fix node packages vulnerabilities and dep hell
+ - [ ] Introduce dockerfile and dockercompose
+ - [ ] Introduce codecov
+ - [ ] Introduce version bump tool(can be a cron job in GH Actions)
+ - [ ] Fix linting issues
