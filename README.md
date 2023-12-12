@@ -24,3 +24,4 @@ npm run dev
  - [ ] Introduce codecov
  - [ ] Introduce version bump tool(can be a cron job in GH Actions)
  - [ ] Fix linting issues
+ - [ ] Introduce pre-commit hooks
