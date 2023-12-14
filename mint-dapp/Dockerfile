@@ -7,7 +7,7 @@ ENV NODE_ENV production
 
 WORKDIR /usr/src/app
 
-RUN export NODE_OPTIONS=--openssl-legacy-provider
+ENV NODE_OPTIONS=--openssl-legacy-provider
 
 RUN apk upgrade openssl
 
